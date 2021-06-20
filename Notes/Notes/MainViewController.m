@@ -5,24 +5,26 @@
 //  Created by Sergey Stelmakh on 20.06.2021.
 //
 
-#import "ViewController.h"
-#import "SecondViewController.h"
+#import "MainViewController.h"
+#import "ChangesViewController.h"
 
-@interface ViewController ()
+@interface MainViewController ()
 
 @end
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)loadView {
     [super loadView];
-    self.tableView = [[UITableView alloc] init];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewCellStyleValue2];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Node";
+    self.title = @"Папки";
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -40,7 +42,7 @@
 - (void) actionAddMethod: (UIBarButtonItem *) sender {
 //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
 //    SecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"SecondViewController"];
-    SecondViewController *secondViewController = [[SecondViewController alloc] init];
+    ChangesViewController *secondViewController = [[ChangesViewController alloc] init];
     [self.navigationController pushViewController:secondViewController animated:YES];
 }
 
@@ -51,6 +53,31 @@
         [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
         [self.tableView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = YES;
         [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor].active = YES;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 4;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"New section";
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identifier = @"cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if(cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+    }
+    
+    cell.textLabel.text = @"ff";
+    return cell;
 }
 
 @end
