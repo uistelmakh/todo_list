@@ -6,6 +6,7 @@
 //
 
 #import "ViewController.h"
+#import "SecondViewController.h"
 
 @interface ViewController ()
 
@@ -37,7 +38,10 @@
 #pragma mark - Action Button
 
 - (void) actionAddMethod: (UIBarButtonItem *) sender {
-    NSLog(@"actionAddMethod");
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//    SecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"SecondViewController"];
+    SecondViewController *secondViewController = [[SecondViewController alloc] init];
+    [self.navigationController pushViewController:secondViewController animated:YES];
 }
 
 #pragma mark - Add Constraint
