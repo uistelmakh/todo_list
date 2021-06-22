@@ -19,6 +19,7 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:194.0/255.0 green:211.0/255.0 blue:205.0/255.0 alpha:1.0];
     [self createTextField];
+    [self createDatePicker];
     [self createSaveButton];
     [self createTapGestureForTextField];
 }
@@ -28,7 +29,7 @@
     [self addConstrains];
 }
 
-#pragma mark - Create Button
+#pragma mark - Create UI elements
 - (void) createSaveButton {
     self.saveButton = [[UIButton alloc] init];
     [self.saveButton addTarget:self action:@selector(actionMethodForSaveButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -37,7 +38,7 @@
     [self.saveButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.view addSubview:self.saveButton];
 }
-#pragma mark - Create textfield
+
 - (void) createTextField {
     self.textField = [[UITextField alloc] init];
     self.textField.returnKeyType = UIReturnKeyDone;
@@ -48,10 +49,17 @@
     self.textField.placeholder = @"Заметка";
     [self.view addSubview:self.textField];
 }
-#pragma mark - Create TapGesture
+
 - (void) createTapGestureForTextField {
     UITapGestureRecognizer *handle = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionForTapGestureRecognizer:)];
     [self.view addGestureRecognizer:handle];
+}
+
+- (void) createDatePicker {
+    self.datePicker = [[UIDatePicker alloc] init];
+    self.datePicker.minimumDate = [NSDate date];
+    self.datePicker.preferredDatePickerStyle = UIDatePickerStyleInline;
+    [self.view addSubview:self.datePicker];
 }
 
 #pragma mark - Create action for button
@@ -68,6 +76,7 @@
 - (void) addConstrains {
     [self createConstrainsForSaveButton];
     [self createConstrainsForTextField];
+    [self createConstrainsForDatePicker];
 }
 
 - (void) createConstrainsForSaveButton {
@@ -84,6 +93,13 @@
     [self.textField.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-16].active = YES;
     [self.textField.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:64].active = YES;
     [self.textField.heightAnchor constraintEqualToConstant:40].active = YES;
+}
+
+- (void) createConstrainsForDatePicker {
+    
+    self.datePicker.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.datePicker.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
+    [self.datePicker.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
 }
 
 
