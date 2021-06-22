@@ -13,6 +13,7 @@
 		EA0E39B7267F672300B576F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA0E39B5267F672300B576F5 /* LaunchScreen.storyboard */; };
 		EA0E39BA267F672300B576F5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0E39B9267F672300B576F5 /* main.m */; };
 		EA0E39C2267F80E600B576F5 /* ChangesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0E39C1267F80E600B576F5 /* ChangesViewController.m */; };
+		EA8E7A20267FBE3000D95963 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E7A1F267FBE3000D95963 /* SettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,8 @@
 		EA0E39B9267F672300B576F5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA0E39C0267F80E600B576F5 /* ChangesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangesViewController.h; sourceTree = "<group>"; };
 		EA0E39C1267F80E600B576F5 /* ChangesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangesViewController.m; sourceTree = "<group>"; };
+		EA8E7A1E267FBE3000D95963 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		EA8E7A1F267FBE3000D95963 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +68,8 @@
 				EA0E39AE267F671E00B576F5 /* MainViewController.m */,
 				EA0E39C0267F80E600B576F5 /* ChangesViewController.h */,
 				EA0E39C1267F80E600B576F5 /* ChangesViewController.m */,
+				EA8E7A1E267FBE3000D95963 /* SettingsViewController.h */,
+				EA8E7A1F267FBE3000D95963 /* SettingsViewController.m */,
 				EA0E39B3267F672300B576F5 /* Assets.xcassets */,
 				EA0E39B5267F672300B576F5 /* LaunchScreen.storyboard */,
 				EA0E39B8267F672300B576F5 /* Info.plist */,
@@ -143,6 +148,7 @@
 			files = (
 				EA0E39C2267F80E600B576F5 /* ChangesViewController.m in Sources */,
 				EA0E39AF267F671E00B576F5 /* MainViewController.m in Sources */,
+				EA8E7A20267FBE3000D95963 /* SettingsViewController.m in Sources */,
 				EA0E39A9267F671E00B576F5 /* AppDelegate.m in Sources */,
 				EA0E39BA267F672300B576F5 /* main.m in Sources */,
 			);

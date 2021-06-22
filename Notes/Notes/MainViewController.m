@@ -24,8 +24,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Папки";
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddMethod:)];
@@ -40,9 +38,8 @@
 #pragma mark - Action Button
 
 - (void) actionAddMethod: (UIBarButtonItem *) sender {
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//    SecondViewController *secondViewController = [storyboard instantiateViewControllerWithIdentifier:@"SecondViewController"];
     ChangesViewController *secondViewController = [[ChangesViewController alloc] init];
+    secondViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:secondViewController animated:YES];
 }
 
@@ -55,6 +52,7 @@
         [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor].active = YES;
 }
 
+#pragma mark - UITableViewDataSourse
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 4;
 }
