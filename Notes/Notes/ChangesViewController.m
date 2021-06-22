@@ -58,7 +58,7 @@
 - (void) createDatePicker {
     self.datePicker = [[UIDatePicker alloc] init];
     self.datePicker.minimumDate = [NSDate date];
-    self.datePicker.preferredDatePickerStyle = UIDatePickerStyleInline;
+    
     [self.view addSubview:self.datePicker];
 }
 
