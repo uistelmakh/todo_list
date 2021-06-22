@@ -9,10 +9,8 @@
 
 
 
-@interface ChangesViewController : UIViewController
-
+@interface ChangesViewController : UIViewController <UITextFieldDelegate>
 @property (strong, nonatomic) UIButton *saveButton;
 @property (strong, nonatomic) UITextField *textField;
-
 @end
 

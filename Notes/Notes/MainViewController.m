@@ -16,7 +16,7 @@
 
 - (void)loadView {
     [super loadView];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewCellStyleValue2];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewCellStyleValue1];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
@@ -28,6 +28,9 @@
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAddMethod:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(actionEditMethod:)];
+    self.navigationItem.leftBarButtonItem = editButton;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -41,6 +44,10 @@
     ChangesViewController *secondViewController = [[ChangesViewController alloc] init];
     secondViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:secondViewController animated:YES];
+}
+
+- (void) actionEditMethod: (UIBarButtonItem *) sender {
+    NSLog(@"Edit");
 }
 
 #pragma mark - Add Constraint
