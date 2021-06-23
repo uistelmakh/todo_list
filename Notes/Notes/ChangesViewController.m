@@ -6,11 +6,12 @@
 //
 
 #import "ChangesViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface ChangesViewController ()
 
 @end
-
+BOOL isGrantedNotificationAccess;
 @implementation ChangesViewController
 
 - (void)viewDidLoad {
@@ -22,6 +23,14 @@
     [self createDatePicker];
     [self createSaveButton];
     [self createTapGestureForTextField];
+    
+    isGrantedNotificationAccess = NO;
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    UNAuthorizationOptions options = UNAuthorizationOptionAlert+UNAuthorizationOptionBadge+UNAuthorizationOptionSound;
+    [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        isGrantedNotificationAccess = granted;
+    }];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -58,17 +67,49 @@
 - (void) createDatePicker {
     self.datePicker = [[UIDatePicker alloc] init];
     self.datePicker.minimumDate = [NSDate date];
+    [self.datePicker addTarget:self action:@selector(datePickerValueChanged) forControlEvents:UIControlEventValueChanged];
     
     [self.view addSubview:self.datePicker];
 }
 
-#pragma mark - Create action for button
+ 
+#pragma mark - Notification and save information
+
 - (void) actionMethodForSaveButton: (UIButton *) sender {
-    NSLog(@"click");
+    NSString *eventInfo = self.textField.text;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"HH:mm dd:MMMM.yyyy";
+    NSString *eventDate = [formatter stringFromDate:self.eventDate];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *components = [calendar components:(NSCalendarUnitYear|NSCalendarUnitMonth| NSCalendarUnitDay|NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond) fromDate:self.eventDate];
+    
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:eventInfo, @"eventInfo", eventDate, @"eventDate",  nil];
+    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.userInfo = dictionary;
+    content.title = @"Notes";
+    content.body = eventInfo;
+    content.badge = @1;
+    content.sound = [UNNotificationSound defaultSound];
+    
+    
+    UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:NO];
+    
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"Notification" content:content trigger:trigger];
+    [center addNotificationRequest:request withCompletionHandler:nil];
 }
 
 - (void) actionForTapGestureRecognizer: (UITapGestureRecognizer *) handle {
     [self.view endEditing:YES];
+}
+
+- (void) datePickerValueChanged {
+    self.eventDate = self.datePicker.date;
+    NSLog(@"datePickerValueChanged %@", self.eventDate);
 }
 
 #pragma mark - Constrains

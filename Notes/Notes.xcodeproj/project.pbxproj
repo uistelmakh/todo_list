@@ -14,6 +14,7 @@
 		EA0E39BA267F672300B576F5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0E39B9267F672300B576F5 /* main.m */; };
 		EA0E39C2267F80E600B576F5 /* ChangesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA0E39C1267F80E600B576F5 /* ChangesViewController.m */; };
 		EA8E7A20267FBE3000D95963 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E7A1F267FBE3000D95963 /* SettingsViewController.m */; };
+		EACA7FB82683414800DB9580 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACA7FB72683414800DB9580 /* UserNotifications.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		EA0E39C1267F80E600B576F5 /* ChangesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangesViewController.m; sourceTree = "<group>"; };
 		EA8E7A1E267FBE3000D95963 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		EA8E7A1F267FBE3000D95963 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		EACA7FB72683414800DB9580 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EACA7FB82683414800DB9580 /* UserNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +51,7 @@
 			children = (
 				EA0E39A6267F671E00B576F5 /* Notes */,
 				EA0E39A5267F671E00B576F5 /* Products */,
+				EACA7FB62683414800DB9580 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +80,14 @@
 				EA0E39B9267F672300B576F5 /* main.m */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		EACA7FB62683414800DB9580 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EACA7FB72683414800DB9580 /* UserNotifications.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

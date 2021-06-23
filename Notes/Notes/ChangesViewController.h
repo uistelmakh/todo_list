@@ -13,5 +13,6 @@
 @property (strong, nonatomic) UIButton *saveButton;
 @property (strong, nonatomic) UITextField *textField;
 @property (strong, nonatomic) UIDatePicker *datePicker;
+@property (strong, nonatomic) NSDate *eventDate;
 @end
 

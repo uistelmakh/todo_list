@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "SettingsViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()
 
@@ -21,7 +22,7 @@
    
     self.window.rootViewController = [self createTabBar];
     [self.window makeKeyAndVisible];
-
+    
     return YES;
 }
 
@@ -49,5 +50,7 @@
     return tabbarController;
 }
 
-
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    application.applicationIconBadgeNumber = 0;
+}
 @end
