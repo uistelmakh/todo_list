@@ -75,7 +75,7 @@ BOOL isGrantedNotificationAccess;
  
 #pragma mark - Notification and save information
 
-- (void) actionMethodForSaveButton: (UIButton *) sender {
+- (void) setNotification {
     NSString *eventInfo = self.textField.text;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -103,8 +103,48 @@ BOOL isGrantedNotificationAccess;
     [center addNotificationRequest:request withCompletionHandler:nil];
 }
 
+#pragma mark - Create actions
+- (void) actionMethodForSaveButton: (UIButton *) sender {
+    
+    if (self.eventDate && [self.textField.text length] != 0) {
+        
+        if ([self.eventDate compare:[NSDate date]] == NSOrderedSame) {
+            
+            [self showAlertWithMessage:@"Дата будущего события не может совпадать с текущей датой"];
+            
+        } else if ([self.eventDate compare:[NSDate date]] == NSOrderedAscending) {
+            [self showAlertWithMessage:@"Дата будущего события не может быть ранее текущего"];
+        } else {
+            
+            [self setNotification];
+            [self showAlertWithMessage:@"Данные успешно сохранены"];
+            
+        }
+        
+    } else if (self.eventDate && [self.textField.text length] == 0) {
+        
+        [self showAlertWithMessage:@"Пожалуйста, заполните текстовое поле"];
+        
+    } else if (!self.eventDate && [self.textField.text length] != 0) {
+        
+        [self showAlertWithMessage:@"Пожалуйста, выберите время"];
+        
+    } else {
+        
+        [self showAlertWithMessage:@"Пожалуйста, заполните текстовое поле и выберете время"];
+        
+    }
+    
+}
+
 - (void) actionForTapGestureRecognizer: (UITapGestureRecognizer *) handle {
-    [self.view endEditing:YES];
+    
+    if ([self.textField.text length] != 0) {
+        [self.view endEditing:YES];
+    } else {
+        
+        [self showAlertWithMessage:@"Для сохранения события введите значение в текстовое поле"];
+    }
 }
 
 - (void) datePickerValueChanged {
@@ -148,10 +188,24 @@ BOOL isGrantedNotificationAccess;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     if ([textField isEqual:self.textField]) {
-        [self.textField resignFirstResponder];
+        
+        if ([self.textField.text length] != 0) {
+            [self.textField resignFirstResponder];
+            return YES;
+        } else {
+            
+            [self showAlertWithMessage:@"Для сохранения события введите значение в текстовое поле"];
+        }
     }
+    return NO;
+}
+
+- (void) showAlertWithMessage: (NSString *) message {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Внимание" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleDefault handler:nil];
     
-    return YES;
+    [alert addAction:action];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 

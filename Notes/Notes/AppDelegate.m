@@ -8,7 +8,6 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "SettingsViewController.h"
-#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()
 
@@ -22,6 +21,9 @@
    
     self.window.rootViewController = [self createTabBar];
     [self.window makeKeyAndVisible];
+    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
     
     return YES;
 }
@@ -53,4 +55,13 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     application.applicationIconBadgeNumber = 0;
 }
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    
+    UNNotificationPresentationOptions options = UNNotificationPresentationOptionAlert+UNNotificationPresentationOptionBadge+UNNotificationPresentationOptionSound;
+    
+    completionHandler(options);
+}
+
+
 @end
