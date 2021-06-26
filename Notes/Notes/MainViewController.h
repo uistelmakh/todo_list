@@ -10,6 +10,7 @@
 @interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *array;
 
 @end
 

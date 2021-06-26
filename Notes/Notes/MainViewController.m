@@ -33,6 +33,12 @@
     self.navigationItem.leftBarButtonItem = editButton;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.array = [NSMutableArray arrayWithObjects:@"first",@"second",@"third",@"forth",@"five",@"six",@"seven", nil];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self addConstraint];
@@ -61,7 +67,7 @@
 
 #pragma mark - UITableViewDataSourse
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return [self.array count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -69,7 +75,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return [self.array count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,7 +87,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     }
     
-    cell.textLabel.text = @"ff";
+    NSString *stringForCell = [self.array objectAtIndex:indexPath.row];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.text = stringForCell;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
     return cell;
 }
 
