@@ -11,7 +11,9 @@
 @interface ChangesViewController ()
 
 @end
+
 BOOL isGrantedNotificationAccess;
+
 @implementation ChangesViewController
 
 - (void)viewDidLoad {

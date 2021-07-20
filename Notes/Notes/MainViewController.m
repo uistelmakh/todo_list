@@ -7,6 +7,7 @@
 
 #import "MainViewController.h"
 #import "ChangesViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface MainViewController ()
 
@@ -36,7 +37,18 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.array = [NSMutableArray arrayWithObjects:@"first",@"second",@"third",@"forth",@"five",@"six",@"seven", nil];
+    
+//    NSArray *array1 = [[UNUserNotificationCenter currentNotificationCenter] getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+//        NSLog(@"requests: %@", requests);
+//    }];
+    
+    UNUserNotificationCenter * center = [UNUserNotificationCenter currentNotificationCenter];
+    __block NSArray *array = [[NSArray alloc] init];
+    [center getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+        NSLog(@"requests: %@", requests);
+        array = requests;
+    }];
+    self.array = [[NSMutableArray alloc] initWithArray:array];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -60,19 +72,19 @@
 - (void) addConstraint {
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-        [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
-        [self.tableView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = YES;
-        [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor].active = YES;
+    [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    [self.tableView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor].active = YES;
+    [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor].active = YES;
 }
 
 #pragma mark - UITableViewDataSourse
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.array count];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"New section";
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return [self.array count];
+//}
+//
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    return @"New section";
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.array count];
@@ -87,10 +99,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     }
     
-    NSString *stringForCell = [self.array objectAtIndex:indexPath.row];
+    UNMutableNotificationContent *notification = [self.array objectAtIndex:indexPath.row];
+    
+    NSDictionary *dictionary = notification.userInfo;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.text = stringForCell;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+    cell.textLabel.text = [dictionary objectForKey: @"eventInfo"];
+    cell.detailTextLabel.text = [dictionary objectForKey:@"eventDate"];
     return cell;
 }
 
